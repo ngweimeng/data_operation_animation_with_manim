@@ -1,11 +1,15 @@
 from openai import OpenAI
 import os
 import time
+import streamlit as st
+
+
+OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
 # Load API key from .env file
-from dotenv import load_dotenv
-load_dotenv()
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+#from dotenv import load_dotenv
+#load_dotenv()
+#OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 def send_message_with_retries(prompt, model="gpt-4o-2024-08-06", max_retries=3):
