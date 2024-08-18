@@ -3,7 +3,6 @@ import os
 import time
 import streamlit as st
 
-
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
 # Load API key from .env file
