@@ -5,16 +5,16 @@ from utils.openai_helper import send_message_with_retries
 from utils.file_operations import ensure_directory_exists, render_manim_script, extract_code_blocks
 from utils.prompt_construction import one_shot_prompt
 
-def display_videos_for_tab(tab_name, operations):
+def display_videos_for_tab(tab_name, operations, video_dir):
     st.header(tab_name)
     for operation in operations:
         # Generate the file paths for both MP4 and GIF
-        mp4_file_path = os.path.join(final_video_dir, f"{operation.lower().replace(' ', '_')}.mp4")
-        gif_file_path = os.path.join(final_video_dir, f"{operation.lower().replace(' ', '_')}.gif")
+        mp4_file_path = os.path.join(video_dir, f"{operation.lower().replace(' ', '_')}.mp4")
+        gif_file_path = os.path.join(video_dir, f"{operation.lower().replace(' ', '_')}.gif")
 
         if os.path.exists(mp4_file_path):
             st.subheader(operation)
-            st.video(mp4_file_path, loop=True, autoplay=True, muted=True)
+            st.video(mp4_file_path, loop=True, autoplay=True, muted=True)  
 
             # Use st.columns to place buttons side by side
             col1, col2 = st.columns(2)
@@ -46,11 +46,14 @@ def display_videos_for_tab(tab_name, operations):
             st.warning(f"Video for {operation} is not available yet.")
 
 # Directories for videos
-final_video_dir = "final_video"
-ensure_directory_exists(final_video_dir)
+selection_video_dir = "scripts/selection/videos"
+filtering_video_dir = "scripts/filtering/videos"
+grouping_aggregation_video_dir = "scripts/grouping_aggregation/videos"
 
-base_dir = "generated_videos"
-ensure_directory_exists(base_dir)
+# Ensure directories exist
+ensure_directory_exists(selection_video_dir)
+ensure_directory_exists(filtering_video_dir)
+ensure_directory_exists(grouping_aggregation_video_dir)
 
 # Streamlit app
 st.title('📊 Educational Animations for Data Operations')
@@ -83,8 +86,8 @@ tab2, tab3, tab4, tab5, tab6, tab1 = st.tabs([
 
 # Tab 1: Column Selection and Ordering
 with tab2:
-    operations = ["Select Columns by Name", "Select Columns by Index", "Select Rows by Name", "Select Rows by Index" ]
-    display_videos_for_tab("Column Selection and Ordering", operations)
+    operations = ["Select Columns by Name", "Select Columns by Index", "Select Rows by Name", "Select Rows by Index"]
+    display_videos_for_tab("Column Selection and Ordering", operations, selection_video_dir)
 
 # Tab 2: Data Filtering
 with tab3:
@@ -97,7 +100,7 @@ with tab3:
         "Filter with OR",
         "Filter with NULL Values"
     ]
-    display_videos_for_tab("Data Filtering", operations)
+    display_videos_for_tab("Data Filtering", operations, filtering_video_dir)
 
 # Tab 3: Data Grouping and Aggregation
 with tab4:
@@ -106,9 +109,9 @@ with tab4:
         "Mean Aggregation",
         "Group by",
         "Group by with Aggregation",
-        "Group by Filtering"
+        "Group by with Filtering"
     ]
-    display_videos_for_tab("Data Grouping and Aggregation", operations)
+    display_videos_for_tab("Data Grouping and Aggregation", operations, grouping_aggregation_video_dir)
 
 # Tab 4: Data Joining
 with tab5:
@@ -120,12 +123,12 @@ with tab5:
         "Cross Join",
         "Self Join"
     ]
-    display_videos_for_tab("Data Joining", operations)
+    display_videos_for_tab("Data Joining", operations, selection_video_dir)
 
 # Tab 5: Advanced Data Reshaping
 with tab6:
     operations = ["Pivot Table", "Data Melting"]
-    display_videos_for_tab("Advanced Data Reshaping", operations)
+    display_videos_for_tab("Advanced Data Reshaping", operations, grouping_aggregation_video_dir)
 
 # Tab 6: How it Works
 with tab1:
@@ -203,7 +206,7 @@ with tab1:
 
             while debug_attempts < max_debug_attempts and not success:
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                video_dir = os.path.join(base_dir, f"{operation}_Python_{timestamp}")
+                video_dir = os.path.join("generated_videos", f"{operation}_Python_{timestamp}")
                 ensure_directory_exists(video_dir)
 
                 with st.spinner('Rendering video...'):
