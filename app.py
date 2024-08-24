@@ -5,12 +5,28 @@ from utils.openai_helper import send_message_with_retries
 from utils.file_operations import ensure_directory_exists, render_manim_script, extract_code_blocks
 from utils.prompt_construction import one_shot_prompt
 
+# Get the absolute path of the current script
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct paths relative to the current script's location
+selection_video_dir = os.path.join(current_dir, "scripts", "selection", "videos")
+filtering_video_dir = os.path.join(current_dir, "scripts", "filtering", "videos")
+grouping_aggregation_video_dir = os.path.join(current_dir, "scripts", "grouping_aggregation", "videos")
+
+# Ensure directories exist (useful for local development)
+ensure_directory_exists(selection_video_dir)
+ensure_directory_exists(filtering_video_dir)
+ensure_directory_exists(grouping_aggregation_video_dir)
+
 def display_videos_for_tab(tab_name, operations, video_dir):
     st.header(tab_name)
     for operation in operations:
         # Generate the file paths for both MP4 and GIF
         mp4_file_path = os.path.join(video_dir, f"{operation.lower().replace(' ', '_')}.mp4")
         gif_file_path = os.path.join(video_dir, f"{operation.lower().replace(' ', '_')}.gif")
+
+        # Debug: print out the paths being checked
+        st.write(f"Looking for video at: {mp4_file_path}")
 
         if os.path.exists(mp4_file_path):
             st.subheader(operation)
@@ -44,16 +60,6 @@ def display_videos_for_tab(tab_name, operations, video_dir):
             st.divider()
         else:
             st.warning(f"Video for {operation} is not available yet.")
-
-# Directories for videos
-selection_video_dir = "scripts/selection/videos"
-filtering_video_dir = "scripts/filtering/videos"
-grouping_aggregation_video_dir = "scripts/grouping_aggregation/videos"
-
-# Ensure directories exist
-ensure_directory_exists(selection_video_dir)
-ensure_directory_exists(filtering_video_dir)
-ensure_directory_exists(grouping_aggregation_video_dir)
 
 # Streamlit app
 st.title('📊 Educational Animations for Data Operations')
