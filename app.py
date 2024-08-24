@@ -21,16 +21,19 @@ ensure_directory_exists(grouping_aggregation_video_dir)
 def display_videos_for_tab(tab_name, operations, video_dir):
     st.header(tab_name)
     for operation in operations:
-        # Generate the file paths for both MP4 and GIF
-        mp4_file_path = os.path.join(video_dir, f"{operation.lower().replace(' ', '_')}.mp4")
-        gif_file_path = os.path.join(video_dir, f"{operation.lower().replace(' ', '_')}.gif")
+        # Ensure the operation name matches your file naming convention
+        file_name = operation.replace(' ', '_')  # This preserves the capitalization
+        
+        # Generate the file paths for both MP4 and GIF with the correct case
+        mp4_file_path = os.path.join(video_dir, f"{file_name}.mp4")
+        gif_file_path = os.path.join(video_dir, f"{file_name}.gif")
 
         # Debug: print out the paths being checked
         st.write(f"Looking for video at: {mp4_file_path}")
 
         if os.path.exists(mp4_file_path):
             st.subheader(operation)
-            st.video(mp4_file_path, loop=True, autoplay=True, muted=True)  
+            st.video(mp4_file_path, loop=True, autoplay=True, muted=True)
 
             # Use st.columns to place buttons side by side
             col1, col2 = st.columns(2)
@@ -41,7 +44,7 @@ def display_videos_for_tab(tab_name, operations, video_dir):
                     st.download_button(
                         label="Download Video as MP4",
                         data=mp4_file,
-                        file_name=f"{operation}_Python.mp4",
+                        file_name=f"{file_name}.mp4",
                         mime="video/mp4"
                     )
 
@@ -52,7 +55,7 @@ def display_videos_for_tab(tab_name, operations, video_dir):
                         st.download_button(
                             label="Download Video as GIF",
                             data=gif_file,
-                            file_name=f"{operation}_Python.gif",
+                            file_name=f"{file_name}.gif",
                             mime="image/gif"
                         )
             
