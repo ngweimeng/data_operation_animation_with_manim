@@ -23,13 +23,16 @@ def display_videos_for_tab(tab_name, operations, video_dir):
     for operation in operations:
         # Ensure the operation name matches your file naming convention
         file_name = operation.replace(' ', '_')  # This preserves the capitalization
-        
+
         # Generate the file paths for both MP4 and GIF with the correct case
         mp4_file_path = os.path.join(video_dir, f"{file_name}.mp4")
         gif_file_path = os.path.join(video_dir, f"{file_name}.gif")
 
-        # Debug: print out the paths being checked
+        # Debugging: print out the operation, expected file name, and directory contents
+        st.write(f"Operation: {operation}")
+        st.write(f"Expected file name: {file_name}.mp4")
         st.write(f"Looking for video at: {mp4_file_path}")
+        st.write(f"Files in directory: {os.listdir(video_dir)}")  # List all files in the directory
 
         if os.path.exists(mp4_file_path):
             st.subheader(operation)
