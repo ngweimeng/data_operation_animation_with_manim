@@ -5,38 +5,16 @@ from utils.openai_helper import send_message_with_retries
 from utils.file_operations import ensure_directory_exists, render_manim_script, extract_code_blocks
 from utils.prompt_construction import one_shot_prompt
 
-# Get the absolute path of the current script
-current_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Construct paths relative to the current script's location
-selection_video_dir = os.path.join(current_dir, "scripts", "selection", "videos")
-filtering_video_dir = os.path.join(current_dir, "scripts", "filtering", "videos")
-grouping_aggregation_video_dir = os.path.join(current_dir, "scripts", "grouping_aggregation", "videos")
-
-# Ensure directories exist (useful for local development)
-ensure_directory_exists(selection_video_dir)
-ensure_directory_exists(filtering_video_dir)
-ensure_directory_exists(grouping_aggregation_video_dir)
-
-def display_videos_for_tab(tab_name, operations, video_dir):
+def display_videos_for_tab(tab_name, operations):
     st.header(tab_name)
     for operation in operations:
-        # Ensure the operation name matches your file naming convention
-        file_name = operation.replace(' ', '_')  # This preserves the capitalization
-
-        # Generate the file paths for both MP4 and GIF with the correct case
-        mp4_file_path = os.path.join(video_dir, f"{file_name}.mp4")
-        gif_file_path = os.path.join(video_dir, f"{file_name}.gif")
-
-        # Debugging: print out the operation, expected file name, and directory contents
-        st.write(f"Operation: {operation}")
-        st.write(f"Expected file name: {file_name}.mp4")
-        st.write(f"Looking for video at: {mp4_file_path}")
-        st.write(f"Files in directory: {os.listdir(video_dir)}")  # List all files in the directory
+        # Generate the file paths for both MP4 and GIF
+        mp4_file_path = os.path.join(final_video_dir, f"{operation.replace(' ', '_')}.mp4")
+        gif_file_path = os.path.join(final_video_dir, f"{operation.replace(' ', '_')}.gif")
 
         if os.path.exists(mp4_file_path):
             st.subheader(operation)
-            st.video(mp4_file_path, loop=True, autoplay=True, muted=True)
+            st.video(mp4_file_path)
 
             # Use st.columns to place buttons side by side
             col1, col2 = st.columns(2)
@@ -47,7 +25,7 @@ def display_videos_for_tab(tab_name, operations, video_dir):
                     st.download_button(
                         label="Download Video as MP4",
                         data=mp4_file,
-                        file_name=f"{file_name}.mp4",
+                        file_name=f"{operation}_Python.mp4",
                         mime="video/mp4"
                     )
 
@@ -58,14 +36,21 @@ def display_videos_for_tab(tab_name, operations, video_dir):
                         st.download_button(
                             label="Download Video as GIF",
                             data=gif_file,
-                            file_name=f"{file_name}.gif",
+                            file_name=f"{operation}_Python.gif",
                             mime="image/gif"
                         )
-            
+
             # Add a divider between each video block
             st.divider()
         else:
             st.warning(f"Video for {operation} is not available yet.")
+
+# Directories for videos
+final_video_dir = "videos"
+ensure_directory_exists(final_video_dir)
+
+base_dir = "generated_videos"
+ensure_directory_exists(base_dir)
 
 # Streamlit app
 st.title('📊 Educational Animations for Data Operations')
@@ -99,7 +84,7 @@ tab2, tab3, tab4, tab5, tab6, tab1 = st.tabs([
 # Tab 1: Column Selection and Ordering
 with tab2:
     operations = ["Select Columns by Name", "Select Columns by Index", "Select Rows by Name", "Select Rows by Index"]
-    display_videos_for_tab("Column Selection and Ordering", operations, selection_video_dir)
+    display_videos_for_tab("Column Selection and Ordering", operations)
 
 # Tab 2: Data Filtering
 with tab3:
@@ -112,7 +97,7 @@ with tab3:
         "Filter with OR",
         "Filter with NULL Values"
     ]
-    display_videos_for_tab("Data Filtering", operations, filtering_video_dir)
+    display_videos_for_tab("Data Filtering", operations)
 
 # Tab 3: Data Grouping and Aggregation
 with tab4:
@@ -123,7 +108,7 @@ with tab4:
         "Group by with Aggregation",
         "Group by with Filtering"
     ]
-    display_videos_for_tab("Data Grouping and Aggregation", operations, grouping_aggregation_video_dir)
+    display_videos_for_tab("Data Grouping and Aggregation", operations)
 
 # Tab 4: Data Joining
 with tab5:
@@ -135,12 +120,12 @@ with tab5:
         "Cross Join",
         "Self Join"
     ]
-    display_videos_for_tab("Data Joining", operations, selection_video_dir)
+    display_videos_for_tab("Data Joining", operations)
 
 # Tab 5: Advanced Data Reshaping
 with tab6:
     operations = ["Pivot Table", "Data Melting"]
-    display_videos_for_tab("Advanced Data Reshaping", operations, grouping_aggregation_video_dir)
+    display_videos_for_tab("Advanced Data Reshaping", operations)
 
 # Tab 6: How it Works
 with tab1:
