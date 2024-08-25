@@ -14,7 +14,7 @@ def display_videos_for_tab(tab_name, operations):
 
         if os.path.exists(mp4_file_path):
             st.subheader(operation)
-            st.video(mp4_file_path)
+            st.video(mp4_file_path, loop=True, autoplay=True, muted=True)
 
             # Use st.columns to place buttons side by side
             col1, col2 = st.columns(2)
