@@ -116,9 +116,7 @@ with tab5:
         "Inner Join", 
         "Left Join", 
         "Right Join", 
-        "Full Outer Join",
-        "Cross Join",
-        "Self Join"
+        "Outer Join"
     ]
     display_videos_for_tab("Data Joining", operations)
 
