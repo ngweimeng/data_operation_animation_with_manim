@@ -77,7 +77,7 @@ tab2, tab3, tab4, tab5, tab6, tab1 = st.tabs([
     "Data Filtering", 
     "Data Grouping and Aggregation", 
     "Data Joining", 
-    "Advanced Data Reshaping", 
+    "Data Reshaping", 
     "How it Works"
 ])
 
@@ -166,6 +166,8 @@ with tab1:
             "Self Join"
         ],
         "Advanced Data Reshaping": [
+            "Append Rows",
+            "Append Columns",
             "Pivot Table", 
             "Data Melting"
         ]
