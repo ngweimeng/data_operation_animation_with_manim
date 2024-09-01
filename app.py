@@ -165,7 +165,7 @@ with tab1:
             "Cross Join",
             "Self Join"
         ],
-        "Advanced Data Reshaping": [
+        "Data Reshaping": [
             "Append Rows",
             "Append Columns",
             "Pivot Table", 
