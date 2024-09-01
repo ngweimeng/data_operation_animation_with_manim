@@ -127,7 +127,7 @@ class concat(Scene):
 
          # -----Append Columns-----
         subtitle_2 = create_subtitle("Next, we concatenate the two DataFrames to append columns using the concat function.")
-        console_2 = create_console(13.9, 0.6, 0 * DOWN, DARK_GREY, 'pd.concat([df_1, df_2], axis=1)')
+        console_2 = create_console(13.9, 0.6, 0.6 * DOWN, DARK_GREY, 'pd.concat([df_1, df_2], axis=1)')
 
         self.add(subtitle_2)
         self.play(FadeIn(console_2))
@@ -142,7 +142,7 @@ class concat(Scene):
             ["Eve", "30", "Female", "Designer", "90000", "4"],
         ]
 
-        resultant_dataframe_rows = create_dataframe(headers3, data3, -0.6 * UP)
+        resultant_dataframe_rows = create_dataframe(headers3, data3, -1.2 * UP)
         resultant_index_column = create_index_column(["0", "1", "2", "3", "4"], resultant_dataframe_rows[1:])
 
         self.play(FadeIn(VGroup(*resultant_dataframe_rows[0])))
