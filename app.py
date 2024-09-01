@@ -122,7 +122,12 @@ with tab5:
 
 # Tab 5: Advanced Data Reshaping
 with tab6:
-    operations = ["Pivot Table", "Data Melting"]
+    operations = [
+        "Append Rows",
+        "Append Columns",
+        "Pivot Table", 
+        "Data Melting"
+    ]
     display_videos_for_tab("Advanced Data Reshaping", operations)
 
 # Tab 6: How it Works
