@@ -105,9 +105,9 @@ class concat(Scene):
                 cell.shift(6.5 * RIGHT)
         index_column_2 = create_index_column(["0", "1", "2"], dataframe_rows_2[1:])
 
-        subtitle_1 = create_subtitle("Here are two DataFrames, 'df_1' and 'df_2'.")
-        console_1 = create_console(6, 0.6, 2.9 * UP + 3.5 * LEFT, DARK_GREY, 'df_1')
-        console_2 = create_console(6, 0.6, 2.9 * UP + 3.5 * RIGHT, DARK_GREY, 'df_2')
+        subtitle_1 = create_subtitle("Here are two DataFrames, 'df1' and 'df1'.")
+        console_1 = create_console(6, 0.6, 2.9 * UP + 3.5 * LEFT, DARK_GREY, 'df1')
+        console_2 = create_console(6, 0.6, 2.9 * UP + 3.5 * RIGHT, DARK_GREY, 'df2')
 
         self.add(subtitle_1)
         self.play(
@@ -123,7 +123,7 @@ class concat(Scene):
 
          # -----Append Rows-----
         subtitle_2 = create_subtitle("Next, we concatenate the two DataFrames to append rows using the concat function.")
-        console_2 = create_console(13.9, 0.6, 0 * DOWN, DARK_GREY, 'pd.concat([df_1, df_2], axis=0)')
+        console_2 = create_console(13.9, 0.6, 0 * DOWN, DARK_GREY, 'pd.concat([df1, df2], axis=0)')
 
         self.add(subtitle_2)
         self.play(FadeIn(console_2))

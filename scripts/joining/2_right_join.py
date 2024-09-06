@@ -109,9 +109,9 @@ class Join(Scene):
                 cell.shift(6.5 * RIGHT)
         index_column_2 = create_index_column(["0", "1", "2", "3", "4"], dataframe_rows_2[1:])
 
-        subtitle_1 = create_subtitle("Here are two DataFrames, 'df_employee' and 'df_salary'.")
-        console_1 = create_console(6, 0.6, 2.9 * UP + 3.5 * LEFT, DARK_GREY, 'df_employee')
-        console_2 = create_console(6, 0.6, 2.9 * UP + 3.5 * RIGHT, DARK_GREY, 'df_salary')
+        subtitle_1 = create_subtitle("Here are two DataFrames, 'df1' and 'df2'.")
+        console_1 = create_console(6, 0.6, 2.9 * UP + 3.5 * LEFT, DARK_GREY, 'df1')
+        console_2 = create_console(6, 0.6, 2.9 * UP + 3.5 * RIGHT, DARK_GREY, 'df2')
 
         self.add(subtitle_1)
         self.play(
@@ -127,7 +127,7 @@ class Join(Scene):
 
          # -----Joining on "Name"-----
         subtitle_2 = create_subtitle("Next, we join the two DataFrames on the 'Name' column using a Right Join.")
-        console_2 = create_console(13.9, 0.6, 0.6 * DOWN, DARK_GREY, 'pd.merge(df_employee, df_salary, on="Name", how="right")')
+        console_2 = create_console(13.9, 0.6, 0.6 * DOWN, DARK_GREY, 'pd.merge(df1, df2, on="Name", how="right")')
 
         self.add(subtitle_2)
         self.play(FadeIn(console_2))
