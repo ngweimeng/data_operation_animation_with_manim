@@ -156,7 +156,7 @@ class GroupBy(Scene):
 
         # Apply the filtering
         subtitle_3 = create_subtitle("Now, let's filter the results to only include groups where Avg. Salary < 80000.")
-        console_3 = create_console(13.9, 0.6, 0.6 * DOWN, DARK_GREY, 'result_df = result_df[result_df["Salary"] < 80000]')
+        console_3 = create_console(13.9, 0.6, 0.6 * DOWN, DARK_GREY, 'result_df[result_df["Salary"] < 80000]')
         self.play(FadeOut(*highlight_rectangles_engineer_res), FadeOut(*highlight_rectangles_designer_res), FadeOut(*highlight_rectangles_manager_res))
         self.play(FadeOut(subtitle_2), FadeOut(console_2))
         self.play(FadeIn(console_3), FadeIn(subtitle_3))
