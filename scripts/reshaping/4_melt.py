@@ -153,5 +153,4 @@ class DataMelt(Scene):
 
         subtitle_5 = create_subtitle("The melted DataFrame has 'Subject' as a new column and scores as values.")
         self.play(FadeIn(subtitle_5))
-        self.wait(1)
-        self.play(FadeOut(subtitle_5))
+        self.wait(2)

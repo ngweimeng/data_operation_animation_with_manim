@@ -67,7 +67,7 @@ class PivotTable(Scene):
             return Rectangle(width=x, height=y).set_stroke(color=color, opacity=1).set_fill(color=color, opacity=0.5).scale(0.6)
 
         # -----Title-----
-        title = MarkupText('Pivot Tables', color=GOLD).scale(0.7).shift(3.5 * UP)
+        title = MarkupText('Pivot Table', color=GOLD).scale(0.7).shift(3.5 * UP)
         self.play(FadeIn(title))
 
         # -----Original DataFrame-----
@@ -126,10 +126,26 @@ class PivotTable(Scene):
         self.play(FadeOut(subtitle_4))
 
         # Display pivot table result
+        highlight_salary_column = highlight_rows(dataframe_rows[1:], [4], RED)
         subtitle_5 = create_subtitle("The resulting Pivot Table will display the average Salary for each Title and Gender.")
         self.play(FadeIn(subtitle_5))
+        self.play(*[Create(highlight) for highlight in highlight_salary_column])
         self.wait(1)
-        self.play(*[FadeIn(cell) for row in pivot_dataframe_rows[1:] for cell in row[1:]])
+        # Group the highlights into pairs (2 per pivot row)
+        grouped_highlights = [
+            VGroup(highlight_salary_column[i], highlight_salary_column[i + 1])
+            for i in range(0, len(highlight_salary_column), 2)
+        ]
+
+        # Create transformations from each pair of highlights to the corresponding pivot row
+        transformations = [
+            TransformFromCopy(group, VGroup(*pivot_row[1:]))
+            for group, pivot_row in zip(grouped_highlights, pivot_dataframe_rows[1:])
+        ]
+
+        # Play all transformations at once
+        self.play(*transformations, run_time=1.75)
+                
         self.wait(1)
         self.play(FadeOut(subtitle_5))
 
@@ -137,8 +153,4 @@ class PivotTable(Scene):
 
         subtitle_6 = create_subtitle("For example, the average salary for Designers is $90,000 for Females and $55,000 for Males.")
         self.play(FadeIn(subtitle_6))
-        self.wait(1)
-        highlight_cell_1 = highlight_rows(pivot_dataframe_rows[1], [1], RED)
-        self.play(*[Create(highlight) for highlight in highlight_cell_1])
-        self.wait(1)
-        self.play(FadeOut(subtitle_6))
+        self.wait(2)
