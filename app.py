@@ -53,12 +53,29 @@ base_dir = "generated_videos"
 ensure_directory_exists(base_dir)
 
 # Streamlit app
-st.title('📊 Educational Animations for Data Operations')
+st.title('🎥 Animated Data Operations for Beginners')
 
-st.caption(
-    "Explore and understand various data operations in Python with visually engaging animations. "
-    "Generate videos that explain data manipulation concepts step by step."
+st.markdown(
+    "Learn essential data manipulation techniques in Python through step-by-step animated videos, designed to make learning more intuitive and engaging."
 )
+
+# "About the App" section
+with st.sidebar:
+    st.header("About the App")
+    st.write(
+        """
+        This app is designed to help beginners understand data manipulation operations in Python using visually engaging animations. 
+        Each animation explains common data tasks, making it easier to grasp complex concepts.
+        
+        **Future Plans:**
+        - Automating video generation for other data manipulation languages such as R and SQL.
+        - Introducing multi-language support, allowing users to generate videos and outputs in different programming languages.
+        
+        **Contribute or Explore More:**
+        Check out the [GitHub project](https://github.com/ngweimeng/data_operation_animation_with_manim) for more information. 
+        Feel free to contribute or explore the codebase if you're interested!
+        """
+    )
 
 # Initialize session state
 if 'prompt' not in st.session_state:
@@ -72,22 +89,24 @@ if 'video_file_path' not in st.session_state:
 if 'video_generated' not in st.session_state:
     st.session_state.video_generated = False
 
-tab2, tab3, tab4, tab5, tab6, tab1 = st.tabs([
-    "Column Selection and Ordering", 
-    "Data Filtering", 
-    "Data Grouping and Aggregation", 
-    "Data Joining", 
-    "Data Reshaping", 
-    "How it Works"
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+    "📊 Column Selection and Ordering", 
+    "🔍 Data Filtering", 
+    "📈 Data Grouping and Aggregation", 
+    "🔗 Data Joining", 
+    "🔄 Data Reshaping", 
+    "ℹ️ Future Works"
 ])
 
 # Tab 1: Column Selection and Ordering
-with tab2:
+with tab1:
+    st.write("### Learn how to organize and select columns and rows effectively.")
     operations = ["Select Columns by Name", "Select Columns by Index", "Select Rows by Name", "Select Rows by Index"]
     display_videos_for_tab("Column Selection and Ordering", operations)
 
 # Tab 2: Data Filtering
-with tab3:
+with tab2:
+    st.write("### Explore techniques to filter your data based on various conditions.")
     operations = [
         "Filter with Equal",
         "Filter with Not Equal",
@@ -100,7 +119,8 @@ with tab3:
     display_videos_for_tab("Data Filtering", operations)
 
 # Tab 3: Data Grouping and Aggregation
-with tab4:
+with tab3:
+    st.write("### Learn how to group and aggregate your data for deeper analysis.")
     operations = [
         "Sum Aggregation",
         "Mean Aggregation",
@@ -111,7 +131,8 @@ with tab4:
     display_videos_for_tab("Data Grouping and Aggregation", operations)
 
 # Tab 4: Data Joining
-with tab5:
+with tab4:
+    st.write("### Understand how to join different datasets together efficiently.")
     operations = [
         "Inner Join", 
         "Left Join", 
@@ -120,25 +141,28 @@ with tab5:
     ]
     display_videos_for_tab("Data Joining", operations)
 
-# Tab 5: Advanced Data Reshaping
-with tab6:
+# Tab 5: Data Reshaping
+with tab5:
+    st.write("### Master reshaping data using techniques like pivoting and melting.")
     operations = [
         "Append Rows",
         "Append Columns",
         "Pivot Table", 
         "Data Melting"
     ]
-    display_videos_for_tab("Advanced Data Reshaping", operations)
+    display_videos_for_tab("Data Reshaping", operations)
 
-# Tab 6: How it Works
-with tab1:
-    st.header("How this App Works")
+# Tab 6: Future Works
+with tab6:
+    st.header("Future Works")
     st.write(
         "This app leverages OpenAI's GPT-4 model to generate Python code, which is then used to create educational "
         "animations using Manim. These animations visually explain various data operations in Python, making complex "
         "concepts easier to grasp. "
     )
     st.warning("Note: The language model's generation is still a work in progress.", icon="⚠️")
+
+
 
     # Define the categories and their respective operations
     categories = {
