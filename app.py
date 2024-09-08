@@ -202,8 +202,8 @@ with tab6:
             "Self Join"
         ],
         "Data Reshaping": [
-            "Append Rows",
-            "Append Columns",
+            "Concat Horizontally",
+            "Concat Vertically",
             "Pivot Table", 
             "Data Melting"
         ]
