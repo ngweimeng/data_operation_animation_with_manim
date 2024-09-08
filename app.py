@@ -14,7 +14,7 @@ def display_videos_for_tab(tab_name, operations):
 
         if os.path.exists(mp4_file_path):
             st.subheader(operation)
-            st.video(mp4_file_path, loop=True, autoplay=True, muted=True)
+            st.video(mp4_file_path, loop=True, muted=True)
 
             # Use st.columns to place buttons side by side
             col1, col2 = st.columns(2)
@@ -54,13 +54,13 @@ ensure_directory_exists(base_dir)
 
 # Streamlit app
 st.set_page_config(
-    page_title="Animated Data Operations for Beginners",  
+    page_title="Animated Data Operations",  
     page_icon="📊", 
     layout="wide",  
     initial_sidebar_state="expanded", 
 )
 
-st.title('🎥 Animated Data Operations for Beginners')
+st.title('🎥 Animated Data Operations')
 
 st.markdown(
     "Learn essential data manipulation techniques in Python through step-by-step animated videos, designed to make learning more intuitive and engaging."
@@ -68,10 +68,10 @@ st.markdown(
 
 # "About the App" section
 with st.sidebar:
-    st.header("About the App")
+    st.header("About the Project")
     st.write(
         """
-        This app is designed to help beginners understand data manipulation operations in Python using visually engaging animations. 
+        This project is designed to help beginners understand data manipulation operations in Python using visually engaging animations. 
         Each animation explains common data tasks, making it easier to grasp complex concepts.
         
         **Future Plans:**
