@@ -152,8 +152,8 @@ with tab4:
 with tab5:
     st.write("### Master reshaping data using techniques like pivoting and melting.")
     operations = [
-        "Append Rows",
-        "Append Columns",
+        "Concat Horizontally",
+        "Concat Vertically",
         "Pivot Table", 
         "Data Melting"
     ]
