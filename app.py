@@ -75,7 +75,7 @@ with st.sidebar:
         Each animation explains common data tasks, making it easier to grasp complex concepts.
         
         **Future Plans:**
-        - Automating video generation for other data manipulation languages such as R and SQL.
+        - Utilize a LLM to Automate video generation for other data manipulation languages such as R and SQL.
         - Introducing multi-language support, allowing users to generate videos and outputs in different programming languages.
         
         **Contribute or Explore More:**
