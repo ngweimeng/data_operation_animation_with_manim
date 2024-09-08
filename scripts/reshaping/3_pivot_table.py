@@ -118,6 +118,7 @@ class PivotTable(Scene):
         ]
 
         pivot_dataframe_rows = create_dataframe(pivot_headers, pivot_data, -1.2 * UP)
+        filtered_index_column = create_index_column(["0", "1", "2"], pivot_dataframe_rows[1:])
 
         self.play(TransformFromCopy(VGroup(*highlight_gender_column),VGroup(*pivot_dataframe_rows[0])),run_time=1.75)
         self.play(TransformFromCopy(VGroup(*highlight_title_column), VGroup(*[row[0] for row in pivot_dataframe_rows[1:]])),run_time=1.75)
@@ -131,6 +132,8 @@ class PivotTable(Scene):
         self.play(*[FadeIn(cell) for row in pivot_dataframe_rows[1:] for cell in row[1:]])
         self.wait(1)
         self.play(FadeOut(subtitle_5))
+
+        self.play(*[FadeIn(index) for index in filtered_index_column])
 
         subtitle_6 = create_subtitle("For example, the average salary for Designers is $90,000 for Females and $55,000 for Males.")
         self.play(FadeIn(subtitle_6))
