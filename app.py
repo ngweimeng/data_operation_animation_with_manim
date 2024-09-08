@@ -53,6 +53,13 @@ base_dir = "generated_videos"
 ensure_directory_exists(base_dir)
 
 # Streamlit app
+st.set_page_config(
+    page_title="Animated Data Operations for Beginners",  
+    page_icon="📊", 
+    layout="wide",  
+    initial_sidebar_state="expanded", 
+)
+
 st.title('🎥 Animated Data Operations for Beginners')
 
 st.markdown(
