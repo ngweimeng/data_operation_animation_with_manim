@@ -75,7 +75,7 @@ with st.sidebar:
         
         **Future Plans:**
         - Utilize a LLM to automate video generation in other programming languages such as R and SQL.
-        - Introducing multi-language support, allowing users to generate voiceover and subtitles a chosen language.
+        - Introducing multi-language support, allowing users to generate voiceover and subtitles in their chosen language.
         
         **Contribute or Explore More:**
         Check out the [GitHub project](https://github.com/ngweimeng/data_operation_animation_with_manim) for more information. 
