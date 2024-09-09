@@ -6,7 +6,6 @@ from utils.file_operations import ensure_directory_exists, render_manim_script, 
 from utils.prompt_construction import one_shot_prompt
 
 def display_videos_for_tab(tab_name, operations):
-    st.header(tab_name)
     for operation in operations:
         # Generate the file paths for both MP4 and GIF
         mp4_file_path = os.path.join(final_video_dir, f"{operation.replace(' ', '_')}.mp4")
@@ -75,8 +74,8 @@ with st.sidebar:
         Each animation explains common data tasks, making it easier to grasp complex concepts.
         
         **Future Plans:**
-        - Utilize a LLM to automate video generation for other data manipulation languages such as R and SQL.
-        - Introducing multi-language support, allowing users to generate videos and outputs in different programming languages.
+        - Utilize a LLM to automate video generation in other programming languages such as R and SQL.
+        - Introducing multi-language support, allowing users to generate voiceover and subtitles a chosen language.
         
         **Contribute or Explore More:**
         Check out the [GitHub project](https://github.com/ngweimeng/data_operation_animation_with_manim) for more information. 
@@ -108,12 +107,14 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
 # Tab 1: Column Selection and Ordering
 with tab1:
     st.write("### Learn how to organize and select columns and rows effectively.")
+    st.divider()
     operations = ["Select Columns by Name", "Select Columns by Index", "Select Rows by Name", "Select Rows by Index"]
     display_videos_for_tab("Column Selection and Ordering", operations)
 
 # Tab 2: Data Filtering
 with tab2:
     st.write("### Explore techniques to filter your data based on various conditions.")
+    st.divider()
     operations = [
         "Filter with Equal",
         "Filter with Not Equal",
@@ -128,6 +129,7 @@ with tab2:
 # Tab 3: Data Grouping and Aggregation
 with tab3:
     st.write("### Learn how to group and aggregate your data for deeper analysis.")
+    st.divider()
     operations = [
         "Sum Aggregation",
         "Mean Aggregation",
@@ -140,6 +142,7 @@ with tab3:
 # Tab 4: Data Joining
 with tab4:
     st.write("### Understand how to join different datasets together efficiently.")
+    st.divider()
     operations = [
         "Inner Join", 
         "Left Join", 
@@ -151,6 +154,7 @@ with tab4:
 # Tab 5: Data Reshaping
 with tab5:
     st.write("### Master reshaping data using techniques like pivoting and melting.")
+    st.divider()
     operations = [
         "Concat Horizontally",
         "Concat Vertically",
