@@ -78,7 +78,7 @@ class DataMelt(Scene):
             ["Charlie", "25", "95", "89"]
         ]
 
-        dataframe_rows = create_dataframe(headers, data, 2.3 * UP)
+        dataframe_rows = create_dataframe(headers, data, 2.3 * UP + 2 * RIGHT)
         index_column_1 = create_index_column([str(i) for i in range(3)], dataframe_rows[1:])
 
         subtitle_1 = create_subtitle("Here is the initial Dataframe, 'df' with students' scores in different subjects.")
@@ -118,7 +118,7 @@ class DataMelt(Scene):
             ["Charlie", "25", "Science", "89"],
         ]
 
-        melted_dataframe_rows = create_dataframe(melted_headers, melted_data, -0.6 * UP)
+        melted_dataframe_rows = create_dataframe(melted_headers, melted_data, -0.6 * UP + 2 * RIGHT)
         filtered_index_column = create_index_column(["0", "1", "2", "3", "4", "5"], melted_dataframe_rows[1:])
 
         highlight_rectangles_alice_res = highlight_rows([melted_dataframe_rows[i] for i in [1,2]], range(3, 4), YELLOW)

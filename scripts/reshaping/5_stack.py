@@ -72,14 +72,14 @@ class Stack(Scene):
         self.play(FadeIn(title))
 
         # -----Original DataFrame-----
-        headers = ["Name", "Age", "Math", "Science"]
+        headers = ["Name", "Math", "Science"]
         data = [
-            ["Alice", "28", "85", "90"],
-            ["Bob", "34", "75", "85"],
-            ["Charlie", "25", "95", "89"]
+            ["Alice", "85", "90"],
+            ["Bob", "75", "85"],
+            ["Charlie", "95", "89"]
         ]
 
-        dataframe_rows = create_dataframe(headers, data, 2.3 * UP)
+        dataframe_rows = create_dataframe(headers, data, 2.3 * UP + 2.5 * RIGHT)
         index_column_1 = create_index_column(["0", "1", "2"], dataframe_rows[1:])
 
         subtitle_1 = create_subtitle("Here is the initial DataFrame, 'df'.")
@@ -91,8 +91,8 @@ class Stack(Scene):
         self.play(FadeOut(subtitle_1))
 
         # -----Explanation of df.set_index("Name").stack()-----
-        subtitle_2 = create_subtitle("Now, we set 'Name' as the index and apply the .stack() method.")
-        console_2 = create_console(13.9, 0.6, 0 * DOWN, DARK_GREY, 'df.set_index("Name").stack()')
+        subtitle_2 = create_subtitle("We set 'Name' as the index, stack the 'Math' and 'Science' columns, and rename the result as 'Score'.")
+        console_2 = create_console(13.9, 0.6, 0 * DOWN, DARK_GREY, 'df.set_index("Name").stack().rename("Score")')
 
         self.add(subtitle_2)
         self.play(FadeIn(console_2))
@@ -100,26 +100,27 @@ class Stack(Scene):
 
         # -----Stacked DataFrame-----
         stacked_data = [
-            ["Alice", "Math", "85"], [" ", "Science", "90"],
-            ["Bob", "Math", "75"], [" ", "Science", "85"],
-            ["Charlie", "Math", "95"], [" ", "Science", "89"]
+            ["Math", "85"], ["Science", "90"],
+            ["Math", "75"], ["Science", "85"],
+            ["Math", "95"], ["Science", "89"]
         ]
 
         # Use MultiIndex structure in the visualization
-        stacked_rows = create_dataframe(["Name", "Subject", "Value"], stacked_data, -0.6 * UP)
+        stacked_rows = create_dataframe([" ", "Score"], stacked_data, -0.6 * UP + 2.5 * RIGHT)
+        index_column_2 = create_index_column(["Alice", " ", "Bob", " ", "Charlie", " "], stacked_rows[1:])
 
-        highlight_rectangles_alice = highlight_rows([dataframe_rows[i] for i in [1]], range(2, 4), YELLOW)
-        highlight_rectangles_bob = highlight_rows([dataframe_rows[i] for i in [2]], range(2, 4), BLUE)
-        highlight_rectangles_charlie = highlight_rows([dataframe_rows[i] for i in [3]], range(2, 4), RED)
+        highlight_rectangles_alice = highlight_rows([dataframe_rows[i] for i in [1]], range(1, 3), YELLOW)
+        highlight_rectangles_bob = highlight_rows([dataframe_rows[i] for i in [2]], range(1, 3), BLUE)
+        highlight_rectangles_charlie = highlight_rows([dataframe_rows[i] for i in [3]], range(1, 3), RED)
         self.play(*[Create(highlight) for highlight in highlight_rectangles_alice])
         self.play(*[Create(highlight) for highlight in highlight_rectangles_bob])
         self.play(*[Create(highlight) for highlight in highlight_rectangles_charlie])
 
-        highlight_rectangles_alice_res = highlight_rows([stacked_rows[i] for i in [1, 2]], range(2, 3), YELLOW)
-        highlight_rectangles_bob_res = highlight_rows([stacked_rows[i] for i in [3, 4]], range(2, 3), BLUE)
-        highlight_rectangles_charlie_res = highlight_rows([stacked_rows[i] for i in [5, 6]], range(2, 3), RED)
+        highlight_rectangles_alice_res = highlight_rows([stacked_rows[i] for i in [1, 2]], range(1, 2), YELLOW)
+        highlight_rectangles_bob_res = highlight_rows([stacked_rows[i] for i in [3, 4]], range(1, 2), BLUE)
+        highlight_rectangles_charlie_res = highlight_rows([stacked_rows[i] for i in [5, 6]], range(1, 2), RED)
 
-        self.play(FadeIn(VGroup(*stacked_rows[0]))) 
+        self.play(FadeIn(VGroup(*stacked_rows[0])), *[FadeIn(index) for index in index_column_2]) 
 
         alice_transform = [
             TransformFromCopy(Group(*highlight_rectangles_alice), Group(*[cell for row in stacked_rows[1:3] for cell in row]))
@@ -142,9 +143,4 @@ class Stack(Scene):
         ]
         self.play(AnimationGroup(*charlie_transform, lag_ratio=0), run_time=1.75)
 
-        self.wait(1)
-        self.play(FadeOut(subtitle_2))
-
-        subtitle_3 = create_subtitle("'Age' is not stacked as it's a constant for each person (i.e. doesn't vary like 'Math' and 'Science').")
-        self.play(FadeIn(subtitle_3))
         self.wait(2)
