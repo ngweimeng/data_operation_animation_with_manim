@@ -107,14 +107,12 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
 # Tab 1: Column Selection and Ordering
 with tab1:
     st.markdown("Learn how to organize and select columns and rows effectively.")
-    st.divider()
     operations = ["Select Columns by Name", "Select Columns by Index", "Select Rows by Name", "Select Rows by Index"]
     display_videos_for_tab("Column Selection and Ordering", operations)
 
 # Tab 2: Data Filtering
 with tab2:
     st.markdown("Explore techniques to filter your data based on various conditions.")
-    st.divider()
     operations = [
         "Filter with Equal",
         "Filter with Not Equal",
@@ -129,7 +127,6 @@ with tab2:
 # Tab 3: Data Grouping and Aggregation
 with tab3:
     st.markdown("Learn how to group and aggregate your data for deeper analysis.")
-    st.divider()
     operations = [
         "Sum Aggregation",
         "Mean Aggregation",
@@ -142,7 +139,6 @@ with tab3:
 # Tab 4: Data Joining
 with tab4:
     st.markdown("Understand how to join different datasets together efficiently.")
-    st.divider()
     operations = [
         "Inner Join", 
         "Left Join", 
@@ -154,7 +150,6 @@ with tab4:
 # Tab 5: Data Reshaping
 with tab5:
     st.markdown("Master reshaping data using techniques like pivoting and melting.")
-    st.divider()
     operations = [
         "Concat Horizontally",
         "Concat Vertically",
