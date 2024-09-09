@@ -107,7 +107,7 @@ class Stack(Scene):
 
         # Use MultiIndex structure in the visualization
         stacked_rows = create_dataframe([" ", "Score"], stacked_data, -0.6 * UP + 2.5 * RIGHT)
-        index_column_2 = create_index_column(["Alice", " ", "Bob", " ", "Charlie", " "], stacked_rows[1:])
+        index_column_2 = create_index_column(["Name", "Alice", " ", "Bob", " ", "Charlie", " "], stacked_rows[0:])
 
         highlight_rectangles_alice = highlight_rows([dataframe_rows[i] for i in [1]], range(1, 3), YELLOW)
         highlight_rectangles_bob = highlight_rows([dataframe_rows[i] for i in [2]], range(1, 3), BLUE)
