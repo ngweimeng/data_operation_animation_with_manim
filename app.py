@@ -155,7 +155,8 @@ with tab5:
         "Concat Horizontally",
         "Concat Vertically",
         "Pivot Table", 
-        "Data Melting"
+        "Data Melting",
+        "Stack"
     ]
     display_videos_for_tab("Data Reshaping", operations)
 
@@ -205,7 +206,8 @@ with tab6:
             "Concat Horizontally",
             "Concat Vertically",
             "Pivot Table", 
-            "Data Melting"
+            "Data Melting",
+            "Stack"
         ]
     }
 

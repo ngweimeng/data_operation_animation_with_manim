@@ -88,7 +88,7 @@ class Filtering(Scene):
         console_1 = create_console(13.9, 0.6, 2.9 * UP, DARK_GREY, 'df')
 
         self.add(subtitle_1)
-        self.play(FadeIn(console_1), *[FadeIn(cell) for row in dataframe_rows for cell in row], *[FadeIn(index) for index in index_column_1] )
+        self.play(FadeIn(console_1), *[FadeIn(cell) for row in dataframe_rows for cell in row], *[FadeIn(index) for index in index_column_1])
         self.wait(1)
         self.play(FadeOut(subtitle_1))
 
