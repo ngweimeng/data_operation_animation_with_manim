@@ -22,11 +22,16 @@ class Stack(Scene):
                 rows.append(create_row(row_data, y_shift))
             return rows
 
-        def create_row(texts, y_shift, fill_color=None):
+        def create_row(texts, y_shift, fill_color=None, is_header=False, is_bottom_dataframe=False):
             row = []
             previous_table = None
             for text in texts:
-                table = create_cell(f'<span font_family="monospace">{text}</span>', fill_color)
+                # For the blank header cell in the bottom dataframe, pass is_blank_header=True
+                if is_bottom_dataframe and text == " ":
+                    table = create_cell(text, fill_color=None, is_blank_header=True)
+                else:
+                    table = create_cell(text, fill_color=fill_color, is_header=is_header)
+
                 if previous_table is None:
                     table.shift(y_shift + 4.5 * LEFT)
                 else:
@@ -35,12 +40,33 @@ class Stack(Scene):
                 previous_table = table
             return row
 
-        def create_cell(text, fill_color=None):
+        def create_cell(text, fill_color=None, is_header=False, is_blank_header=False):
             cell = Rectangle(width=3, height=0.6)
-            cell.set_stroke(color=GREY, opacity=1).scale(0.6)
-            if fill_color:
-                cell.set_fill(fill_color, opacity=1)
-            text = MarkupText(text).scale(0.4)
+
+            # For blank header in the bottom dataframe, no stroke and no fill
+            if is_blank_header:
+                cell.set_stroke(opacity=0)  # No stroke
+                cell.set_fill(opacity=0)    # No fill
+            # Apply grey fill to the "Score" header cell
+            elif text == "Score":
+                cell.set_stroke(color=GREY, opacity=1)  # Apply stroke for the "Score" header
+                cell.set_fill(GREY_D, opacity=1)  # Fill the "Score" header with grey
+            # For headers in the top dataframe, set stroke even for Math and Science
+            elif is_header:
+                cell.set_stroke(color=GREY, opacity=1)  # Stroke for headers
+                if fill_color:
+                    cell.set_fill(fill_color, opacity=1)
+            # Default condition for other cells (no stroke for Math and Science in the bottom dataframe)
+            elif "Math" in text or "Science" in text:
+                cell.set_stroke(opacity=0)  # No stroke for Math and Science in bottom dataframe
+            else:
+                cell.set_stroke(color=GREY, opacity=1)  # Default stroke for other cells
+
+            cell.scale(0.6)
+
+            # Set the text with monospaced font (same as the index)
+            text = MarkupText(f'<span font_family="monospace">{text}</span>').scale(0.4)
+            
             return VGroup(cell, text)
         
         def create_index_column(indices, data_rows):
@@ -79,7 +105,11 @@ class Stack(Scene):
             ["Charlie", "95", "89"]
         ]
 
-        dataframe_rows = create_dataframe(headers, data, 2.3 * UP + 2.5 * RIGHT)
+        # Create the header row with a stroke for all headers, including "Math" and "Science"
+        header_row_top = create_row([f'<b>{header}</b>' for header in headers], 2.3 * UP + 2.5 * RIGHT, fill_color=GREY_D, is_header=True)
+
+        # Create the data rows (without the header)
+        dataframe_rows = [header_row_top] + [create_row(row_data, 2.3 * UP + 2.5 * RIGHT - (i + 1) * 0.35 * UP) for i, row_data in enumerate(data)]
         index_column_1 = create_index_column(["0", "1", "2"], dataframe_rows[1:])
 
         subtitle_1 = create_subtitle("Here is the initial DataFrame, 'df'.")
@@ -105,8 +135,12 @@ class Stack(Scene):
             ["Math", "95"], ["Science", "89"]
         ]
 
-        # Use MultiIndex structure in the visualization
-        stacked_rows = create_dataframe([" ", "Score"], stacked_data, -0.6 * UP + 2.5 * RIGHT)
+        # Create the header row for the bottom DataFrame
+        # Ensuring the blank header cell (" ") has no stroke and no fill
+        header_row_bottom = create_row([" ", "Score"], -0.6 * UP + 2.5 * RIGHT, fill_color=GREY_D, is_bottom_dataframe=True)
+
+        # Create the stacked data rows, with no stroke for "Math" and "Science"
+        stacked_rows = [header_row_bottom] + [create_row(row_data, -0.6 * UP + 2.5 * RIGHT - (i + 1) * 0.35 * UP) for i, row_data in enumerate(stacked_data)]
         index_column_2 = create_index_column(["Name", "Alice", " ", "Bob", " ", "Charlie", " "], stacked_rows[0:])
 
         highlight_rectangles_alice = highlight_rows([dataframe_rows[i] for i in [1]], range(1, 3), YELLOW)
@@ -120,12 +154,12 @@ class Stack(Scene):
         highlight_rectangles_bob_res = highlight_rows([stacked_rows[i] for i in [3, 4]], range(1, 2), BLUE)
         highlight_rectangles_charlie_res = highlight_rows([stacked_rows[i] for i in [5, 6]], range(1, 2), RED)
 
-        self.play(FadeIn(VGroup(*stacked_rows[0])), *[FadeIn(index) for index in index_column_2]) 
-
         alice_transform = [
             TransformFromCopy(Group(*highlight_rectangles_alice), Group(*[cell for row in stacked_rows[1:3] for cell in row]))
         ] + [
             TransformFromCopy(Group(*highlight_rectangles_alice), Group(*[cell for row in highlight_rectangles_alice_res for cell in row]))
+        ] + [
+            TransformFromCopy(Group(*highlight_rectangles_alice), Group(*[cell for row in index_column_2[0:2] for cell in row]))
         ]
         self.play(AnimationGroup(*alice_transform, lag_ratio=0), run_time=1.75)
 
@@ -133,6 +167,8 @@ class Stack(Scene):
             TransformFromCopy(Group(*highlight_rectangles_bob), Group(*[cell for row in stacked_rows[3:5] for cell in row]))
         ] + [
             TransformFromCopy(Group(*highlight_rectangles_bob), Group(*[cell for row in highlight_rectangles_bob_res for cell in row]))
+        ] + [
+            TransformFromCopy(Group(*highlight_rectangles_alice), Group(*[cell for row in index_column_2[2:4] for cell in row]))
         ]
         self.play(AnimationGroup(*bob_transform, lag_ratio=0), run_time=1.75)
 
@@ -140,7 +176,10 @@ class Stack(Scene):
             TransformFromCopy(Group(*highlight_rectangles_charlie), Group(*[cell for row in stacked_rows[5:7] for cell in row]))
         ] + [
             TransformFromCopy(Group(*highlight_rectangles_charlie), Group(*[cell for row in highlight_rectangles_charlie_res for cell in row]))
+        ] + [
+            TransformFromCopy(Group(*highlight_rectangles_alice), Group(*[cell for row in index_column_2[4:6] for cell in row]))
         ]
         self.play(AnimationGroup(*charlie_transform, lag_ratio=0), run_time=1.75)
-
+        
+        self.play(FadeIn(VGroup(*stacked_rows[0]))) 
         self.wait(2)
