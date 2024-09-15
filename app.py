@@ -126,6 +126,11 @@ st.markdown(
         margin: 0;
         line-height: 1.2; /* Adjusted line height */
     }
+    /* Reduce padding around main content */
+    .main .block-container {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
     </style>
     """,
     unsafe_allow_html=True
