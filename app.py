@@ -64,7 +64,7 @@ st.markdown(
 with st.expander("How to Use This Webpage❓"):
     st.markdown(
         """
-        1. **Select a Topic:** Use the tabs at the top of the page to choose a topic you're interested in, such as "Column Selection" or "Data Filtering".
+        1. **Select a Topic:** Use the tabs below to choose a topic you're interested in, such as "📊 Column Selection" or "🔍 Data Filtering".
 
         2. **Choose an Operation:** Within each tab, use the dropdown menu to select a specific data operation you want to learn about.
 
