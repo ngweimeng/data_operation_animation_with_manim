@@ -175,4 +175,4 @@ class Join(Scene):
         # Inner Join Explanation
         subtitle_3 = create_subtitle("An inner join includes only the rows with matching values in both tables.")
         self.add(subtitle_3)
-        self.wait(1)
+        self.wait(2)

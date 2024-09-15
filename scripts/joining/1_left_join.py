@@ -190,4 +190,4 @@ class Join(Scene):
         highlight_rectangles = highlight_rows([resultant_dataframe_rows[i] for i in [5]], range(5), BLUE)
         self.play(*[Create(highlight) for highlight in highlight_rectangles])
         self.add(subtitle_3)
-        self.wait(1)
+        self.wait(2)

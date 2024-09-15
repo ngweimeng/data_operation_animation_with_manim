@@ -200,4 +200,4 @@ class Join(Scene):
         # Right Join Explanation
         subtitle_3 = create_subtitle("An outer join includes all rows from both tables, with unmatched rows filled with nulls.")
         self.add(subtitle_3)
-        self.wait(1)
+        self.wait(2)
