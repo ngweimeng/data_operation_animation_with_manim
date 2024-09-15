@@ -5,44 +5,41 @@ from utils.openai_helper import send_message_with_retries
 from utils.file_operations import ensure_directory_exists, render_manim_script, extract_code_blocks
 from utils.prompt_construction import one_shot_prompt
 
-def display_videos_for_tab(tab_name, operations):
-    for operation in operations:
-        # Generate the file paths for both MP4 and GIF
-        mp4_file_path = os.path.join(final_video_dir, f"{operation.replace(' ', '_')}.mp4")
-        gif_file_path = os.path.join(final_video_dir, f"{operation.replace(' ', '_')}.gif")
+def display_video(operation):
+    # Generate the file paths for both MP4 and GIF
+    mp4_file_path = os.path.join(final_video_dir, f"{operation.replace(' ', '_')}.mp4")
+    gif_file_path = os.path.join(final_video_dir, f"{operation.replace(' ', '_')}.gif")
 
-        if os.path.exists(mp4_file_path):
-            st.subheader(operation)
-            st.video(mp4_file_path, loop=True, muted=True)
+    if os.path.exists(mp4_file_path):
+        st.subheader(operation)
+        st.video(mp4_file_path, loop=True, muted=True)
 
-            # Use st.columns to place buttons side by side
-            col1, col2 = st.columns(2)
+        col1, col2 = st.columns(2)
 
-            with col1:
-                # Download MP4 button
-                with open(mp4_file_path, "rb") as mp4_file:
+        with col1:
+            # Download MP4 button
+            with open(mp4_file_path, "rb") as mp4_file:
+                st.download_button(
+                    label="Download Video as MP4",
+                    data=mp4_file,
+                    file_name=f"{operation}_Python.mp4",
+                    mime="video/mp4"
+                )
+
+        with col2:
+            # Downlaod GIF button
+            if os.path.exists(gif_file_path):
+                with open(gif_file_path, "rb") as gif_file:
                     st.download_button(
-                        label="Download Video as MP4",
-                        data=mp4_file,
-                        file_name=f"{operation}_Python.mp4",
-                        mime="video/mp4"
+                        label="Download Video as GIF",
+                        data=gif_file,
+                        file_name=f"{operation}_Python.gif",
+                        mime="image/gif"
                     )
 
-            with col2:
-                # Check if the GIF version exists and provide a download button
-                if os.path.exists(gif_file_path):
-                    with open(gif_file_path, "rb") as gif_file:
-                        st.download_button(
-                            label="Download Video as GIF",
-                            data=gif_file,
-                            file_name=f"{operation}_Python.gif",
-                            mime="image/gif"
-                        )
-
-            # Add a divider between each video block
-            st.divider()
-        else:
-            st.warning(f"Video for {operation} is not available yet.")
+        st.divider()
+    else:
+        st.warning(f"Video for {operation} is not available yet.")
 
 # Directories for videos
 final_video_dir = "videos"
@@ -108,7 +105,8 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
 with tab1:
     st.markdown("Learn how to organize and select columns and rows effectively.")
     operations = ["Select Columns by Name", "Select Columns by Index", "Select Rows by Name", "Select Rows by Index"]
-    display_videos_for_tab("Column Selection and Ordering", operations)
+    selected_operation = st.selectbox("Select an Operation", operations, key="tab1_operation")
+    display_video(selected_operation)
 
 # Tab 2: Data Filtering
 with tab2:
@@ -122,7 +120,8 @@ with tab2:
         "Filter with OR",
         "Filter with NULL Values"
     ]
-    display_videos_for_tab("Data Filtering", operations)
+    selected_operation = st.selectbox("Select an Operation", operations, key="tab2_operation")
+    display_video(selected_operation)
 
 # Tab 3: Data Grouping and Aggregation
 with tab3:
@@ -134,7 +133,8 @@ with tab3:
         "Group by with Aggregation",
         "Group by with Filtering"
     ]
-    display_videos_for_tab("Data Grouping and Aggregation", operations)
+    selected_operation = st.selectbox("Select an Operation", operations, key="tab3_operation")
+    display_video(selected_operation)
 
 # Tab 4: Data Joining
 with tab4:
@@ -145,7 +145,8 @@ with tab4:
         "Right Join", 
         "Outer Join"
     ]
-    display_videos_for_tab("Data Joining", operations)
+    selected_operation = st.selectbox("Select an Operation", operations, key="tab4_operation")
+    display_video(selected_operation)
 
 # Tab 5: Data Reshaping
 with tab5:
@@ -157,7 +158,8 @@ with tab5:
         "Data Melting",
         "Stack"
     ]
-    display_videos_for_tab("Data Reshaping", operations)
+    selected_operation = st.selectbox("Select an Operation", operations, key="tab5_operation")
+    display_video(selected_operation)
 
 # Tab 6: Future Works
 with tab6:
@@ -168,8 +170,6 @@ with tab6:
         "concepts easier to grasp. "
     )
     st.warning("Note: The language model's generation is still a work in progress.", icon="⚠️")
-
-
 
     # Define the categories and their respective operations
     categories = {
@@ -210,15 +210,12 @@ with tab6:
         ]
     }
 
-    # User inputs
     category = st.selectbox("Select a Topic", list(categories.keys()), key="category")
     operation = st.radio("Select a Data Operation", categories[category], key="operation")
 
-    # Display the selected options
     st.markdown(f"**Category:** {category}")
     st.markdown(f"**Operation:** {operation}")
 
-    # Generate and display the Manim script
     if st.button('Generate Video'):
         st.session_state.prompt = one_shot_prompt(operation)
 
