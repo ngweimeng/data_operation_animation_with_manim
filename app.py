@@ -93,6 +93,19 @@ with st.sidebar:
         """
     )
 
+# Inject custom CSS to make the tab labels bold
+st.markdown(
+    """
+    <style>
+    /* Make tab labels bold */
+    div[data-baseweb="tab"] button {
+        font-weight: bold !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Initialize session state
 if 'prompt' not in st.session_state:
     st.session_state.prompt = ""
