@@ -61,7 +61,7 @@ st.markdown(
     "Learn essential data manipulation techniques in Python through step-by-step animated videos, designed to make learning more intuitive and engaging."
 )
 
-with st.expander("How to Use This Webpage"):
+with st.expander("How to Use This Webpage❓"):
     st.markdown(
         """
         1. **Select a Topic:** Use the tabs at the top of the page to choose a topic you're interested in, such as "Data Column Selection & Ordering" or "Data Filtering".
