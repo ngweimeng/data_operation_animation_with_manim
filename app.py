@@ -131,6 +131,9 @@ st.markdown(
         padding-top: 3rem;
         padding-bottom: 3rem;
     }
+    /* Allow tabs to wrap onto multiple lines */
+    .stTabs [role="tablist"] {
+    flex-wrap: wrap;
     </style>
     """,
     unsafe_allow_html=True
@@ -149,9 +152,9 @@ if 'video_generated' not in st.session_state:
     st.session_state.video_generated = False
 
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-    "📊 Data Column Selection & Ordering",
+    "📊 Column Selection",
     "🔍 Data Filtering",
-    "📈 Data Grouping and Aggregation",
+    "📈 Grouping & Aggregation",
     "🔗 Data Joining",
     "🔄 Data Reshaping",
     "ℹ️ Future Works"
@@ -245,7 +248,7 @@ with tab6:
 
     # Define the categories and their respective operations
     categories = {
-        "Data Column Selection & Ordering": [
+        "Column Selection": [
             "Select Columns by Name",
             "Select Columns by Index",
         ],
@@ -258,7 +261,7 @@ with tab6:
             "Filter with OR",
             "Filter with NULL Values"
         ],
-        "Data Grouping and Aggregation": [
+        "Grouping and Aggregation": [
             "Sum Aggregation",
             "Mean Aggregation",
             "Group by Single Column",
