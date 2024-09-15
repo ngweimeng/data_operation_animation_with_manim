@@ -92,12 +92,11 @@ with st.sidebar:
         Feel free to contribute or explore the codebase if you're interested!
         """
     )
-
 st.markdown(
     """
     <style>
     /* Make tab labels bold */
-    div[data-testid="stHorizontalBlock"] button div[data-testid="stMarkdownContainer"] p {
+    div [role="tab"] {
         font-weight: bold !important;
     }
     </style>
