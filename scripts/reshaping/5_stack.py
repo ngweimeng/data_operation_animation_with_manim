@@ -154,6 +154,8 @@ class Stack(Scene):
         highlight_rectangles_bob_res = highlight_rows([stacked_rows[i] for i in [3, 4]], range(1, 2), BLUE)
         highlight_rectangles_charlie_res = highlight_rows([stacked_rows[i] for i in [5, 6]], range(1, 2), RED)
 
+        self.play(FadeIn(VGroup(*stacked_rows[0])))
+
         alice_transform = [
             TransformFromCopy(Group(*highlight_rectangles_alice), Group(*[cell for row in stacked_rows[1:3] for cell in row]))
         ] + [
@@ -181,5 +183,4 @@ class Stack(Scene):
         ]
         self.play(AnimationGroup(*charlie_transform, lag_ratio=0), run_time=1.75)
         
-        self.play(FadeIn(VGroup(*stacked_rows[0]))) 
         self.wait(2)
