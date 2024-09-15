@@ -57,24 +57,6 @@ st.set_page_config(
 )
 
 st.title('🎥 Animated Data Operations')
-
-# Reduce vertical spacing
-st.markdown(
-    """
-    <style>
-    .css-18e3th9 {
-        padding-top: 0rem;
-        padding-bottom: 0rem;
-    }
-    .css-1d391kg {
-        padding-top: 0rem;
-        padding-bottom: 0rem;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
 st.markdown(
     "Learn essential data manipulation techniques in Python through step-by-step animated videos, designed to make learning more intuitive and engaging."
 )
