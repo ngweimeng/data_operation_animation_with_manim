@@ -93,12 +93,11 @@ with st.sidebar:
         """
     )
 
-# Inject custom CSS to make the tab labels bold
 st.markdown(
     """
     <style>
     /* Make tab labels bold */
-    button[role="tab"] > div {
+    div[data-testid="stHorizontalBlock"] button div[data-testid="stMarkdownContainer"] p {
         font-weight: bold !important;
     }
     </style>
