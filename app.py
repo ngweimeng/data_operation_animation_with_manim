@@ -92,30 +92,30 @@ with st.sidebar:
         Feel free to contribute or explore the codebase if you're interested!
         """
     )
-# Inject custom CSS to make the tab labels bold
 st.markdown(
     """
     <style>
     /* Inactive tabs */
     button[data-baseweb="tab"] {
-        background-color: #f0f0f0;
-        color: #000;
-        border: 1px solid #ccc;
+        background-color: #d6d3dd; /* Slightly darker than background */
+        color: #333333; /* Dark gray text for readability */
+        border: 1px solid #b3b0bd; /* Soft border color */
     }
     /* Active tab */
     button[data-baseweb="tab"][aria-selected="true"] {
-        background-color: #007ACC;
-        color: white;
-        border-bottom: 2px solid #005F9E;
+        background-color: #6a5acd; /* Slate blue */
+        color: white; /* White text for contrast */
+        border-bottom: 2px solid #483d8b; /* Darker border to highlight active tab */
     }
     /* Hover effect */
     button[data-baseweb="tab"]:hover {
-        background-color: #e0e0e0;
+        background-color: #cbc8d3; /* Slightly darker hover effect */
         cursor: pointer;
     }
-    /* Increase font size */
+    /* Increase font size and set monospace font */
     button[data-baseweb="tab"] div[data-testid="stMarkdownContainer"] p {
         font-size: 1.1rem !important;
+        font-family: 'Courier New', Courier, monospace !important; /* Match monospace font */
     }
     </style>
     """,
