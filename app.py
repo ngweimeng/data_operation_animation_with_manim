@@ -11,9 +11,10 @@ def display_video(operation):
     gif_file_path = os.path.join(final_video_dir, f"{operation.replace(' ', '_')}.gif")
 
     if os.path.exists(mp4_file_path):
-        st.subheader(operation)
-        st.video(mp4_file_path, loop=True, muted=True)
-
+        # Adjusted to fit within the column
+        st.video(mp4_file_path, start_time=0)
+        
+        # Place download buttons side by side
         col1, col2 = st.columns(2)
 
         with col1:
@@ -27,7 +28,7 @@ def display_video(operation):
                 )
 
         with col2:
-            # Downlaod GIF button
+            # Download GIF button
             if os.path.exists(gif_file_path):
                 with open(gif_file_path, "rb") as gif_file:
                     st.download_button(
@@ -37,7 +38,6 @@ def display_video(operation):
                         mime="image/gif"
                     )
 
-        st.divider()
     else:
         st.warning(f"Video for {operation} is not available yet.")
 
@@ -50,13 +50,30 @@ ensure_directory_exists(base_dir)
 
 # Streamlit app
 st.set_page_config(
-    page_title="Animated Data Operations",  
-    page_icon="📊", 
-    layout="wide",  
-    initial_sidebar_state="expanded", 
+    page_title="Animated Data Operations",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded",
 )
 
 st.title('🎥 Animated Data Operations')
+
+# Reduce vertical spacing
+st.markdown(
+    """
+    <style>
+    .css-18e3th9 {
+        padding-top: 0rem;
+        padding-bottom: 0rem;
+    }
+    .css-1d391kg {
+        padding-top: 0rem;
+        padding-bottom: 0rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 st.markdown(
     "Learn essential data manipulation techniques in Python through step-by-step animated videos, designed to make learning more intuitive and engaging."
@@ -69,7 +86,7 @@ with st.expander("How to Use This Webpage"):
 
         2. **Choose an Operation:** Within each tab, use the dropdown menu to select a specific data operation you want to learn about.
 
-        3. **View the Video:** The corresponding animated video for the selected operation will be displayed below the dropdown menu.
+        3. **View the Video:** The corresponding animated video for the selected operation will be displayed next to the dropdown menu.
 
         4. **Download the Video:** You can download the video in MP4 or GIF format using the download buttons provided under the video.
         """
@@ -92,6 +109,8 @@ with st.sidebar:
         Feel free to contribute or explore the codebase if you're interested!
         """
     )
+
+# CSS adjustments for tabs and overall layout
 st.markdown(
     """
     <style>
@@ -100,17 +119,17 @@ st.markdown(
         background-color: #d6d3dd;
         color: #333333;
         border: 1px solid #b3b0bd;
-        padding: 12px 24px; /* Adjust padding: top-bottom, left-right */
-        margin-right: 5px;   /* Optional: Add space between tabs */
-        border-radius: 5px;  /* Optional: Add rounded corners */
+        padding: 8px 16px; /* Reduced padding */
+        margin-right: 2px;  /* Reduced margin */
+        border-radius: 5px;
     }
     /* Active tab */
     button[data-baseweb="tab"][aria-selected="true"] {
         background-color: #6a5acd;
         color: white;
         border-bottom: 2px solid #483d8b;
-        padding: 12px 24px;  /* Ensure padding matches inactive tabs */
-        margin-right: 5px;
+        padding: 8px 16px;
+        margin-right: 2px;
         border-radius: 5px;
     }
     /* Hover effect */
@@ -120,10 +139,15 @@ st.markdown(
     }
     /* Tab label styling */
     button[data-baseweb="tab"] div[data-testid="stMarkdownContainer"] p {
-        font-weight: 500;  /* Medium weight */
+        font-weight: 500;
         font-family: 'Courier New', Courier, monospace !important;
         margin: 0;
-        line-height: 1.5;  /* Adjust line height for vertical centering */
+        line-height: 1.2; /* Adjusted line height */
+    }
+    /* Reduce padding around main content */
+    .main .block-container {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
     }
     </style>
     """,
@@ -143,11 +167,11 @@ if 'video_generated' not in st.session_state:
     st.session_state.video_generated = False
 
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-    "📊 Data Column Selection & Ordering", 
-    "🔍 Data Filtering", 
-    "📈 Data Grouping and Aggregation", 
-    "🔗 Data Joining", 
-    "🔄 Data Reshaping", 
+    "📊 Data Column Selection & Ordering",
+    "🔍 Data Filtering",
+    "📈 Data Grouping and Aggregation",
+    "🔗 Data Joining",
+    "🔄 Data Reshaping",
     "ℹ️ Future Works"
 ])
 
@@ -155,8 +179,12 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
 with tab1:
     st.markdown("Learn how to organize and select columns and rows effectively.")
     operations = ["Select Columns by Name", "Select Columns by Index", "Select Rows by Name", "Select Rows by Index"]
-    selected_operation = st.selectbox("Select an Operation", operations, key="tab1_operation")
-    display_video(selected_operation)
+    # Use columns to place selectbox and video side by side
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        selected_operation = st.selectbox("Select an Operation", operations, key="tab1_operation")
+    with col2:
+        display_video(selected_operation)
 
 # Tab 2: Data Filtering
 with tab2:
@@ -170,8 +198,11 @@ with tab2:
         "Filter with OR",
         "Filter with NULL Values"
     ]
-    selected_operation = st.selectbox("Select an Operation", operations, key="tab2_operation")
-    display_video(selected_operation)
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        selected_operation = st.selectbox("Select an Operation", operations, key="tab2_operation")
+    with col2:
+        display_video(selected_operation)
 
 # Tab 3: Data Grouping and Aggregation
 with tab3:
@@ -183,20 +214,26 @@ with tab3:
         "Group by with Aggregation",
         "Group by with Filtering"
     ]
-    selected_operation = st.selectbox("Select an Operation", operations, key="tab3_operation")
-    display_video(selected_operation)
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        selected_operation = st.selectbox("Select an Operation", operations, key="tab3_operation")
+    with col2:
+        display_video(selected_operation)
 
 # Tab 4: Data Joining
 with tab4:
     st.markdown("Understand how to join different datasets together efficiently.")
     operations = [
-        "Inner Join", 
-        "Left Join", 
-        "Right Join", 
+        "Inner Join",
+        "Left Join",
+        "Right Join",
         "Outer Join"
     ]
-    selected_operation = st.selectbox("Select an Operation", operations, key="tab4_operation")
-    display_video(selected_operation)
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        selected_operation = st.selectbox("Select an Operation", operations, key="tab4_operation")
+    with col2:
+        display_video(selected_operation)
 
 # Tab 5: Data Reshaping
 with tab5:
@@ -204,12 +241,15 @@ with tab5:
     operations = [
         "Concat Horizontally",
         "Concat Vertically",
-        "Pivot Table", 
+        "Pivot Table",
         "Data Melting",
         "Stack"
     ]
-    selected_operation = st.selectbox("Select an Operation", operations, key="tab5_operation")
-    display_video(selected_operation)
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        selected_operation = st.selectbox("Select an Operation", operations, key="tab5_operation")
+    with col2:
+        display_video(selected_operation)
 
 # Tab 6: Future Works
 with tab6:
@@ -224,8 +264,8 @@ with tab6:
     # Define the categories and their respective operations
     categories = {
         "Data Column Selection & Ordering": [
-            "Select Columns by Name", 
-            "Select Columns by Index", 
+            "Select Columns by Name",
+            "Select Columns by Index",
         ],
         "Data Filtering": [
             "Filter with Comparison Operator: Equal (==)",
@@ -244,9 +284,9 @@ with tab6:
             "HAVING Clause Filtering"
         ],
         "Data Joining": [
-            "Inner Join", 
-            "Left Join", 
-            "Right Join", 
+            "Inner Join",
+            "Left Join",
+            "Right Join",
             "Full Outer Join",
             "Cross Join",
             "Self Join"
@@ -254,7 +294,7 @@ with tab6:
         "Data Reshaping": [
             "Concat Horizontally",
             "Concat Vertically",
-            "Pivot Table", 
+            "Pivot Table",
             "Data Melting",
             "Stack"
         ]
