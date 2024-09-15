@@ -119,7 +119,8 @@ tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
 with tab1:
     st.markdown("Learn how to organize and select columns and rows effectively.")
     operations = ["Select Columns by Name", "Select Columns by Index", "Select Rows by Name", "Select Rows by Index"]
-    selected_operation = st.selectbox("Select an Operation", operations, key="tab1_operation")
+    st.markdown("**Select an Operation**")
+    selected_operation = st.selectbox("", operations, key="tab1_operation")
     display_video(selected_operation)
 
 # Tab 2: Data Filtering
@@ -134,7 +135,8 @@ with tab2:
         "Filter with OR",
         "Filter with NULL Values"
     ]
-    selected_operation = st.selectbox("Select an Operation", operations, key="tab2_operation")
+    st.markdown("**Select an Operation**")
+    selected_operation = st.selectbox("", operations, key="tab2_operation")
     display_video(selected_operation)
 
 # Tab 3: Data Grouping and Aggregation
@@ -147,7 +149,8 @@ with tab3:
         "Group by with Aggregation",
         "Group by with Filtering"
     ]
-    selected_operation = st.selectbox("Select an Operation", operations, key="tab3_operation")
+    st.markdown("**Select an Operation**")
+    selected_operation = st.selectbox("", operations, key="tab3_operation")
     display_video(selected_operation)
 
 # Tab 4: Data Joining
@@ -159,7 +162,8 @@ with tab4:
         "Right Join", 
         "Outer Join"
     ]
-    selected_operation = st.selectbox("Select an Operation", operations, key="tab4_operation")
+    st.markdown("**Select an Operation**")
+    selected_operation = st.selectbox("", operations, key="tab4_operation")
     display_video(selected_operation)
 
 # Tab 5: Data Reshaping
@@ -172,7 +176,8 @@ with tab5:
         "Data Melting",
         "Stack"
     ]
-    selected_operation = st.selectbox("Select an Operation", operations, key="tab5_operation")
+    st.markdown("**Select an Operation**")
+    selected_operation = st.selectbox("", operations, key="tab5_operation")
     display_video(selected_operation)
 
 # Tab 6: Future Works
@@ -224,12 +229,15 @@ with tab6:
         ]
     }
 
+    # User inputs
     category = st.selectbox("Select a Topic", list(categories.keys()), key="category")
     operation = st.radio("Select a Data Operation", categories[category], key="operation")
 
+    # Display the selected options
     st.markdown(f"**Category:** {category}")
     st.markdown(f"**Operation:** {operation}")
 
+    # Generate and display the Manim script
     if st.button('Generate Video'):
         st.session_state.prompt = one_shot_prompt(operation)
 
