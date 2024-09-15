@@ -112,11 +112,6 @@ st.markdown(
         background-color: #cbc8d3; /* Slightly darker hover effect */
         cursor: pointer;
     }
-    /* Increase font size and set monospace font */
-    button[data-baseweb="tab"] div[data-testid="stMarkdownContainer"] p {
-        font-size: 1.1rem !important;
-        font-family: 'Courier New', Courier, monospace !important; /* Match monospace font */
-    }
     </style>
     """,
     unsafe_allow_html=True
