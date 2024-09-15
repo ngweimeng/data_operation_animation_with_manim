@@ -98,7 +98,7 @@ st.markdown(
     """
     <style>
     /* Make tab labels bold */
-    div[data-baseweb="tab"] button {
+    button[role="tab"] > div {
         font-weight: bold !important;
     }
     </style>
