@@ -117,7 +117,7 @@ if 'video_generated' not in st.session_state:
     st.session_state.video_generated = False
 
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-    "📊 Column Selection and Ordering", 
+    "📊 Data Column Selection & Ordering", 
     "🔍 Data Filtering", 
     "📈 Data Grouping and Aggregation", 
     "🔗 Data Joining", 
@@ -197,7 +197,7 @@ with tab6:
 
     # Define the categories and their respective operations
     categories = {
-        "Column Selection and Ordering": [
+        "Data Column Selection & Ordering": [
             "Select Columns by Name", 
             "Select Columns by Index", 
         ],
