@@ -62,6 +62,20 @@ st.markdown(
     "Learn essential data manipulation techniques in Python through step-by-step animated videos, designed to make learning more intuitive and engaging."
 )
 
+st.markdown(
+    """
+    **How to Use This Webpage:**
+
+    1. **Select a Topic:** Use the tabs at the top of the page to choose a topic you're interested in, such as "Column Selection and Ordering" or "Data Filtering".
+
+    2. **Choose an Operation:** Within each tab, use the dropdown menu to select a specific data operation you want to learn about.
+
+    3. **View the Video:** The corresponding animated video for the selected operation will be displayed below the dropdown menu.
+
+    4. **Download the Video:** You can download the video in MP4 or GIF format using the download buttons provided under the video.
+    """
+)
+
 # "About the App" section
 with st.sidebar:
     st.header("About the Project")
