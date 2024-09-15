@@ -97,20 +97,33 @@ st.markdown(
     <style>
     /* Inactive tabs */
     button[data-baseweb="tab"] {
-        background-color: #d6d3dd; /* Slightly darker than background */
-        color: #333333; /* Dark gray text for readability */
-        border: 1px solid #b3b0bd; /* Soft border color */
+        background-color: #d6d3dd;
+        color: #333333;
+        border: 1px solid #b3b0bd;
+        padding: 12px 24px; /* Adjust padding: top-bottom, left-right */
+        margin-right: 5px;   /* Optional: Add space between tabs */
+        border-radius: 5px;  /* Optional: Add rounded corners */
     }
     /* Active tab */
     button[data-baseweb="tab"][aria-selected="true"] {
-        background-color: #6a5acd; /* Slate blue */
-        color: white; /* White text for contrast */
-        border-bottom: 2px solid #483d8b; /* Darker border to highlight active tab */
+        background-color: #6a5acd;
+        color: white;
+        border-bottom: 2px solid #483d8b;
+        padding: 12px 24px;  /* Ensure padding matches inactive tabs */
+        margin-right: 5px;
+        border-radius: 5px;
     }
     /* Hover effect */
     button[data-baseweb="tab"]:hover {
-        background-color: #cbc8d3; /* Slightly darker hover effect */
+        background-color: #cbc8d3;
         cursor: pointer;
+    }
+    /* Tab label styling */
+    button[data-baseweb="tab"] div[data-testid="stMarkdownContainer"] p {
+        font-weight: 500;  /* Medium weight */
+        font-family: 'Courier New', Courier, monospace !important;
+        margin: 0;
+        line-height: 1.5;  /* Adjust line height for vertical centering */
     }
     </style>
     """,
