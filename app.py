@@ -65,7 +65,7 @@ st.markdown(
 with st.expander("How to Use This Webpage"):
     st.markdown(
         """
-        1. **Select a Topic:** Use the tabs at the top of the page to choose a topic you're interested in, such as "Column Selection and Ordering" or "Data Filtering".
+        1. **Select a Topic:** Use the tabs at the top of the page to choose a topic you're interested in, such as "Data Column Selection & Ordering" or "Data Filtering".
 
         2. **Choose an Operation:** Within each tab, use the dropdown menu to select a specific data operation you want to learn about.
 
@@ -96,9 +96,26 @@ with st.sidebar:
 st.markdown(
     """
     <style>
-    /* Make tab labels bold */
+    /* Inactive tabs */
+    button[data-baseweb="tab"] {
+        background-color: #f0f0f0;
+        color: #000;
+        border: 1px solid #ccc;
+    }
+    /* Active tab */
+    button[data-baseweb="tab"][aria-selected="true"] {
+        background-color: #007ACC;
+        color: white;
+        border-bottom: 2px solid #005F9E;
+    }
+    /* Hover effect */
+    button[data-baseweb="tab"]:hover {
+        background-color: #e0e0e0;
+        cursor: pointer;
+    }
+    /* Increase font size */
     button[data-baseweb="tab"] div[data-testid="stMarkdownContainer"] p {
-        font-weight: bold !important;
+        font-size: 1.1rem !important;
     }
     </style>
     """,
