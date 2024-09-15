@@ -120,7 +120,7 @@ with tab1:
     st.markdown("Learn how to organize and select columns and rows effectively.")
     operations = ["Select Columns by Name", "Select Columns by Index", "Select Rows by Name", "Select Rows by Index"]
     st.markdown("**Select an Operation**")
-    selected_operation = st.selectbox("", operations, key="tab1_operation")
+    selected_operation = st.selectbox(operations, key="tab1_operation")
     display_video(selected_operation)
 
 # Tab 2: Data Filtering
