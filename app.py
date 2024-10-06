@@ -91,7 +91,7 @@ with st.sidebar:
         Feel free to contribute or explore the codebase if you're interested!
 
         **Feedback:**
-        I am always looking to improve the project. If you have any feedback or suggestions, please fill out this
+        Your insights are important for improving the website. If you have any feedback or suggestions, please fill out this form.
         https://forms.gle/V4wcQtEtqEbTHUma7
         """
     )
