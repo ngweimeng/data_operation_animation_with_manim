@@ -89,6 +89,10 @@ with st.sidebar:
         **Contribute or Explore More:**
         Check out the [GitHub project](https://github.com/ngweimeng/data_operation_animation_with_manim) for more information. 
         Feel free to contribute or explore the codebase if you're interested!
+
+        **Feedback:**
+        I am always looking to improve the project. If you have any feedback or suggestions, please fill out this
+        https://forms.gle/V4wcQtEtqEbTHUma7
         """
     )
 
